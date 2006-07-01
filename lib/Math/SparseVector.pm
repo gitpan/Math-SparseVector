@@ -25,7 +25,7 @@ our @EXPORT = qw(
     
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.03';
 
 use overload
     '++' => 'incr',
@@ -346,11 +346,11 @@ another module Math::SparseMatrix, which makes use of this module.
 
 =head1 AUTHOR
 
-Amruta D Purandare, <pura0010@d.umn.edu>
+Amruta Purandare, <amruta@cs.pitt.edu>
 
-Ted Pederse, <tpederse@d.umn.edu>
+Ted Pedersen, <tpederse@d.umn.edu>
 
-Mahesh Joshi <joshi031@d.umn.edu>
+Mahesh Joshi, <joshi031@d.umn.edu>
 
 =head1 COPYRIGHT AND LICENSE
 
