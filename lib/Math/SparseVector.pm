@@ -1,6 +1,6 @@
 package Math::SparseVector;
 
-use 5.008005;
+use 5.006;
 use strict;
 use warnings;
 
@@ -25,7 +25,7 @@ our @EXPORT = qw(
     
 );
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use overload
     '++' => 'incr',
@@ -271,12 +271,18 @@ __END__
 
 =head1 NAME
 
-Math::SparseVector - Implements Sparse Vector Operations. The code is
-entirely borrowed from the existing Sparse::Vector v0.03 module on CPAN, and
-re-cast into a new namespace in order to introduce another module
-Math::SparseMatrix, which makes use of this module.
+Math::SparseVector - Supports sparse vector operations such as 
+setting a value in a vector, reading a value at a given index,
+obtaining all indices, addition and dot product of two sparse vectors, 
+and vector normalization. 
 
-=head1 USAGE
+=head1 MODULE HISTORY
+
+This module is the successor to Sparse::Vector, which was re-cast 
+into this new namespace in order to introduce another module 
+Math::SparseMatrix, which makes use of this module. 
+
+=head1 SYNOPSIS
 
   use Math::SparseVector;
 
@@ -293,12 +299,10 @@ Math::SparseMatrix, which makes use of this module.
   @indices = $spvec->keys;
 
   # returns 1 if the vector is empty and has no keys
-  if($spvec->isnull)
-  {
+  if($spvec->isnull) {
     print "vector is null.\n";
   }
-  else
-  {
+  else  {
     print "vector is not null.\n";
   }
 
@@ -337,33 +341,143 @@ Math::SparseMatrix, which makes use of this module.
   # deallocates all entries
   $spvec->free;
 
-=head1 ABSTRACT
+=head1 USAGE NOTES
 
-Math::SparseVector is a Perl module that implements basic vector operations on 
-sparse vectors. The code is entirely borrowed from the existing Sparse::Vector 
-v0.03 module on CPAN, and re-cast into a new namespace in order to introduce 
-another module Math::SparseMatrix, which makes use of this module.
+=over 
 
-=head1 AUTHOR
+=item 1. Loading Math::SparseVector Module
 
-Amruta Purandare, <amruta@cs.pitt.edu>
+To use this module, you must insert the following line in your Perl program
+before using any of the supported methods.
 
-Ted Pedersen, <tpederse@d.umn.edu>
+    use Math::SparseVector;
 
-Mahesh Joshi, <joshi031@d.umn.edu>
+=item 2. Creating a Math::SparseVector Object
+
+The following line creates a new object of Math::SparseVector class referred 
+with the name 'spvec'.
+
+    $spvec=Math::SparseVector->new;
+
+The newly created 'spvec' vector will be initially empty.
+
+=item 3. Using Methods
+
+Now you can use any of the following methods on this 'spvec' Math::SparseVector
+object.
+
+=over
+
+=item 1. set(i,n) - Sets the value at index i to n
+     
+         # equivalent to $spvec{12}=5;
+         $spvec->set(12,5); 
+
+=item 2. get(i)    - Returns the value at index i
+        
+         # equivalent to $value=$spvec{12};
+         $value = $spvec->get(12); 
+
+=item 3. keys()    - Returns the indices of all non-zero values in the vector
+
+         # equivalent to @keys=sort {$a <=> $b} keys %spvec;
+         @indices = $spvec->keys;
+
+=item 4. isnull()  - Returns 1 if the vector is empty and has no keys
+
+         # similar to
+         # if(scalar(keys %spvec)==0) {print "vector is null.\n";}
+         if($spvec->isnull) { print "vector is null.\n"; }
+
+=item 5. print()   - Prints the sparse vector to stdout - Output will show a list of space separated 'index value' pairs for each non-zero 'value' in the vector.
+
+         # similar to
+         # foreach $ind (sort {$a<=>$b} keys %spvec)
+             # { print "$ind " . $spvec{$ind} . " "; }
+         $spvec->print;
+
+=item 6. stringify() - Returns the vector in a string form. Same as print() method except the vector is written to a string that is returned instead of displaying onto stdout
+
+         # the below will do exactly same as $spvec->print;
+         $string=$spvec->stringify;
+         print "$string\n";
+
+=item 7. v1->add(v2) - Adds contents of v2 to vector v1. 
+
+         Similar to v1+=v2
+
+         $v1->add($v2);
+         If v1 = (2,  , , 5, 8, ,  , , 1)
+         &  v2 = ( , 1, , 3,  , , 5, , 9)
+         where blanks show the 0 values that are not stored in 
+         Math::SparseVector.
+
+         After      $v1->add($v2); 
+         v1 = (2, 1, , 8, 8, , 5, , 10) and v2 remains same
+
+=item 8. v1->binadd(v2) - Binary equivalent of v2 is added into v1. Binary equivalent of a vector is obtained by setting all non-zero values to 1s.
+
+         If v1 = (1,  , , 1, 1, ,  , , 1)
+         &  v2 = ( , 1, , 1,  , , 1, , 1)
+         Then, after v1->binadd(v2),
+         v1 will be (1, 1, , 1, 1, , 1, , 1).
+
+         If v1 = (1,  , , 1, 1, ,  , , 1)
+         &  v2 = ( , 1, , 3,  , , 5, , 9)
+         v1->binadd(v2);
+         will set v1 to (1, 1, , 1, 1, , 1, , 1).
+
+=item 9. incr(i)   - Increments the value at index i
+
+         # is similar to $spvec{12}++;
+         $spvec->incr(12);
+
+=item 10. div(n)   - Divides each vector entry by a given divisor n
+
+         $spvec->div(4);
+         If spvec = (2,  , , 5, 8, ,  , , 1)
+         Then, $spvec->div(4)
+         will set spvec to (0.5, , , 1.25, 2, , , , 0.25)
+
+=item 11. norm()   - Returns the norm of a given vector
+
+         $spvec_norm = $spvec->norm;
+         If spvec = (2,  , , 5, 8, ,  , , 1)
+         $spvec->norm will return the value 
+         = sqrt(2^2 + 5^2 + 8^2 + 1)
+         = sqrt(4 + 25 + 64 + 1)
+         = 9.69536
+
+=item 12. v1->dot(v2) - Returns the dot product of two vectors
+
+         $dotprod = $v1->dot($v2);
+         If v1 = (2,  , , 5, 8, ,  , , 1)
+                 &  v2 = ( , 1, , 3,  , , 5, , 9)
+         v1->dot(v2) returns
+         5*3 + 1*9 = 15 + 9 = 24
+
+=item 13. free()   - Deallocates all entries and makes the vector empty
+
+         $spvec->free;
+         will set spvec to null vector ()
+
+=back
+=back
+
+=head1 AUTHORS
+
+Amruta Purandare, University of Pittsburgh
+amruta at cs.pitt.edu
+
+Ted Pedersen, University of Minnesota, Duluth
+tpederse at d.umn.edu
+
+Mahesh Joshi, Carnegie-Mellon University
+maheshj at cmu.edu
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2006,
-
-Amruta Purandare, University of Pittsburgh.
-amruta@cs.pitt.edu
-
-Ted Pedersen, University of Minnesota, Duluth.
-tpederse@d.umn.edu
-
-Mahesh Joshi, University of Minnesota, Duluth.
-joshi031@d.umn.edu
+Copyright (c) 2006-2008, Amruta Purandare, Ted Pedersen, Mahesh Joshi
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -377,8 +491,8 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program; if not, write to
 
-The Free Software Foundation, Inc.,
-59 Temple Place - Suite 330,
-Boston, MA  02111-1307, USA.
+ The Free Software Foundation, Inc.,
+ 59 Temple Place - Suite 330,
+ Boston, MA  02111-1307, USA.
 
 =cut

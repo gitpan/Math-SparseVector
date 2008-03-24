@@ -1,8 +1,8 @@
-Changes
-INSTALL
+CHANGES
+INSTALL.pod
+lib/Math/SparseVector.pm
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
+META.yml
 README
 t/Math-SparseVector.t
-lib/Math/SparseVector.pm
-META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,0 +1,13 @@
+Revision history for Perl extension Math::SparseVector.
+
+0.04  Mar 24, 2008
+	- relaxed Perl requirement to 5.6.2 from 5.8.5
+	- modifed SparseVector.pm so README is generated from it
+	- modified Makefile.PL to better support META.yml
+
+0.03  June 18, 2006
+	- Fixed typos in documentation
+	- original version; created by h2xs 1.23 with options 
+    -AXc -n Math::SparseVector. Code and documentation used from
+    existing Sparse::Vector v0.03 module, with minimal changes.
+

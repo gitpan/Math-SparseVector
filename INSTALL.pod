@@ -1,17 +1,14 @@
+=head1 NAME
 
-=======================
-Math::SparseVector 0.03
-=======================
+INSTALL Installation instructions for Math::SparseVetor
 
-============
-INSTALLATION
-============
+=head1 DEPENDENCIES
 
-This module has been developed on Linux and Unix platforms, using Perl
-programming language. To use this module, you must have Perl (version
-5.8 or better recommended) installed on your system. Perl is freely 
-available at - http://www.perl.org. It is very likely that you will 
-already have Perl installed if you are using a Unix/Linux based system.
+This module has been developed on Linux and Unix platforms, using the 
+Perl programming language. To use this module, you must have Perl (version
+5.6.2 or better recommended) installed on your system. 
+
+=head1 SYNOPSIS
 
 To install this module type the following:
 
@@ -43,28 +40,20 @@ explicitly set your PERL5LIB environment variable to include:
 
 if this directory was not already included.
 
-If you have any troubles during the installation, please contact the authors at
-
-    amruta@cs.pitt.edu
-        or
-    tpederse@d.umn.edu (Primary contact)
-        or
-    joshi031@d.umn.edu
-
-=========
-COPYRIGHT
-=========
-
-Copyright (c) 2006,
+=head1 AUTHORS
 
 Amruta Purandare, University of Pittsburgh. 
-amruta@cs.pitt.edu
+amruta at cs.pitt.edu
 
 Ted Pedersen, University of Minnesota, Duluth.
-tpederse@d.umn.edu
+tpederse at d.umn.edu
 
-Mahesh Joshi, University of Minnesota, Duluth.
-joshi031@d.umn.edu
+Mahesh Joshi, Carnegie-Mellon University
+maheshj at cmu.edu
+
+=head1 COPYRIGHT
+
+Copyright (c) 2006-2008, Amruta Purandare, Ted Pedersen, Mahesh Joshi
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -78,8 +67,6 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program; if not, write to
 
-The Free Software Foundation, Inc.,
-59 Temple Place - Suite 330,
-Boston, MA  02111-1307, USA.
-
-=============================================================================
+ The Free Software Foundation, Inc.,
+ 59 Temple Place - Suite 330,
+ Boston, MA  02111-1307, USA.
